@@ -35,13 +35,17 @@ byte(s) is encoded with four, three or two base-85 digits, respectively.
 /* The base-85 character set, as an 85-character zero-terminated string. */
 extern const char *base85_chars;
 
-/* Determines if the character `c' belongs to the base-85 character set. */
-int base85_char(char c);
+/* Returns the codepoint for character `c' if it belongs to the base85
+   character set, or -1 otherwise. */
+extern const signed char base85_codes[128];
+#define base85_code(c) (base85_codes[(c)&0x7f])
 
-/* Returns the length required to encode `len' input bytes. */
+/* Returns the length required to encode `len' input bytes, or -1 if `len`
+   is negative or the result cannot be represented as an integer. */
 int base85_encode_len(int len);
 
-/* Returns the length required to decode `len' base-85 characters. */
+/* Returns the length required to decode `len' base-85 characters, or -1 if
+   `len` is negative. */
 int base85_decode_len(int len);
 
 /* Similar to base85_decode_len, but takes characters that do not belong to

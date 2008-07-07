@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
             {
                 if ((c = fgetc(stdin)) == EOF)
                     break;
-                if (base85_char(c))
+                if (base85_code(c) >= 0)
                     buffer_in[len_in++] = c;
             }
             len_out = base85_decode(buffer_in, len_in, buffer_out);
